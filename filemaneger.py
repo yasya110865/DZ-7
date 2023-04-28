@@ -15,7 +15,8 @@ while True:
     print('9.играть в викторину')
     print('10.мой банковский счет')
     print('11.смена рабочей директории')
-    print('12.выход')
+    print('12. Сохранить содержимое рабочей директории в файл')
+    print('13.выход')
 
     choice = int(input('Выберите пункт меню'))
 
@@ -46,16 +47,13 @@ while True:
             if os.path.isdir(os.path.join(path, i)):
                 dirlist.append(i)
         print(dirlist)
-        listdir['dirs'] = dirlist
-        with open('listdir.json', 'w') as f:
-            json.dump(listdir, f)
+
     elif choice == 6:
         path = os.getcwd()
         filelist = [i for i in os.listdir(path) if os.path.isfile(os.path.join(path, i))]
         print(filelist)
         listdir['files'] = filelist
-        with open('listdir.json', 'w') as f:
-            json.dump(listdir, f)
+
     elif choice == 7:
         print(os.uname())
     elif choice == 8:
@@ -69,6 +67,15 @@ while True:
         dirname = input('Введите имя директории ')
         os.chdir(dirname)
     elif choice == 12:
+        path = os.getcwd()
+        dirlist = [i for i in os.listdir(path) if os.path.isdir(os.path.join(path, i))]
+        listdir['dirs'] = dirlist
+        filelist = [i for i in os.listdir(path) if os.path.isfile(os.path.join(path, i))]
+        listdir['files'] = filelist
+        with open('listdir.json', 'w') as f:
+            json.dump(listdir, f)
+
+    elif choice == 13:
         break
     else:
         print('Неверный пункт меню')
