@@ -25,57 +25,61 @@ while True:
             listdir = json.load(f)
     else:
         listdir = {}
+
     if choice == 1:
-        dir = input('Имя каталога: ')
-        if not os.path.exists(dir):
-            os.mkdir(dir)
+            dir = input('Имя каталога: ')
+            try:
+                os.mkdir(dir)
+            except:
+                print('Такой каталог уже есть!')
+
     elif choice == 2:
-        dir = input('имя каталога для удаления: ')
-        if os.path.exists(dir):
-            os.rmdir(dir)
+            dir = input('имя каталога для удаления: ')
+            if os.path.exists(dir):
+                os.rmdir(dir)
     elif choice == 3:
-        filename = input('Имя файла для копирования: ')
-        newfilename = input('Имя нового файла: ')
-        shutil.copyfile(filename, newfilename)
+            filename = input('Имя файла для копирования: ')
+            newfilename = input('Имя нового файла: ')
+            shutil.copyfile(filename, newfilename)
     elif choice == 4:
-        print(os.listdir(os.getcwd()))
+            print(os.listdir(os.getcwd()))
     elif choice == 5:
 
-        path = os.getcwd()
-        dirlist = []
-        for i in os.listdir(path):
-            if os.path.isdir(os.path.join(path, i)):
-                dirlist.append(i)
-        print(dirlist)
+            path = os.getcwd()
+            dirlist = [i for i in os.listdir(path) if os.path.isdir(os.path.join(path, i))]
+
+            print(dirlist)
 
     elif choice == 6:
-        path = os.getcwd()
-        filelist = [i for i in os.listdir(path) if os.path.isfile(os.path.join(path, i))]
-        print(filelist)
-        listdir['files'] = filelist
+            path = os.getcwd()
+            filelist = [i for i in os.listdir(path) if os.path.isfile(os.path.join(path, i))]
+            print(filelist)
+            listdir['files'] = filelist
 
     elif choice == 7:
-        print(os.uname())
+            print(os.uname())
     elif choice == 8:
-        print(os.getlogin())
+            print(os.getlogin())
     elif choice == 9:
-        n = int(input('Сколько раз играем?: '))
-        vic(n)
+            n = int(input('Сколько раз играем?: '))
+
+            vic(n) if n < 5 else print('Слишком много!')
     elif choice == 10:
-        my_bill()
+            my_bill()
     elif choice == 11:
-        dirname = input('Введите имя директории ')
-        os.chdir(dirname)
+            dirname = input('Введите имя директории ')
+            os.chdir(dirname)
     elif choice == 12:
-        path = os.getcwd()
-        dirlist = [i for i in os.listdir(path) if os.path.isdir(os.path.join(path, i))]
-        listdir['dirs'] = dirlist
-        filelist = [i for i in os.listdir(path) if os.path.isfile(os.path.join(path, i))]
-        listdir['files'] = filelist
-        with open('listdir.json', 'w') as f:
-            json.dump(listdir, f)
+            path = os.getcwd()
+            dirlist = [i for i in os.listdir(path) if os.path.isdir(os.path.join(path, i))]
+            listdir['dirs'] = dirlist
+            filelist = [i for i in os.listdir(path) if os.path.isfile(os.path.join(path, i))]
+            listdir['files'] = filelist
+            with open('listdir.json', 'w') as f:
+                json.dump(listdir, f)
 
     elif choice == 13:
-        break
-    else:
-        print('Неверный пункт меню')
+            break
+        # else:
+        #     print('Неверный пункт меню')
+
